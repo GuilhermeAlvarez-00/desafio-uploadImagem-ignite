@@ -8,8 +8,23 @@ import { api } from '../services/api';
 import { Loading } from '../components/Loading';
 import { Error } from '../components/Error';
 
+interface ImageData {
+  title: string;
+  description: string;
+  url: string;
+  ts: number;
+  id: string;
+}
+
+interface FetchResponseImage {
+  after: string;
+  data: ImageData[];
+}
+
 export default function Home(): JSX.Element {
-  async function fetchImages({ pageParam = null }) {
+  async function fetchImages({
+    pageParam = null,
+  }): Promise<FetchResponseImage> {
     const response = await api('/api/images', {
       params: {
         after: pageParam,
@@ -28,13 +43,12 @@ export default function Home(): JSX.Element {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery('images', fetchImages, {
-    // TODO GET AND RETURN NEXT PAGE PARAM
-    getNextPageParam: lastPage => lastPage?.after || null,
+    getNextPageParam: lastPage => lastPage.after || null,
   });
 
-  console.log(data);
   const formattedData = useMemo(() => {
-    // TODO FORMAT AND FLAT DATA ARRAY
+    const formattedArray = data?.pages.flatMap(image => image.data);
+    return formattedArray;
   }, [data]);
 
   // TODO RENDER LOADING SCREEN
