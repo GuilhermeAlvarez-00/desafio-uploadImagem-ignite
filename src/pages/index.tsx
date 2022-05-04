@@ -65,11 +65,12 @@ export default function Home(): JSX.Element {
 
       <Box maxW={1120} px={20} mx="auto" my={20}>
         <CardList cards={formattedData} />
-        {/* TODO RENDER LOAD MORE BUTTON IF DATA HAS NEXT PAGE */}
         {isFetchingNextPage ? (
           <Button mt="40px">Carregando...</Button>
         ) : hasNextPage ? (
-          <Button mt="40px">Carregar mais</Button>
+          <Button mt="40px" onClick={() => fetchNextPage()}>
+            Carregar mais
+          </Button>
         ) : null}
       </Box>
     </>
