@@ -17,9 +17,9 @@ export default function Home(): JSX.Element {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery(
-    'images',
+    'images'
     // TODO AXIOS REQUEST WITH PARAM
-    ,
+
     // TODO GET AND RETURN NEXT PAGE PARAM
   );
 
